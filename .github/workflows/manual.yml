@@ -1,0 +1,37 @@
+name: Execute jar of Shacl Play
+on:
+  push:
+    branches:
+      - "main"
+  
+jobs:
+  build:
+    name: execute code ts for call jar librabry
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Use Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: 16.x
+          cache: 'npm'
+          cache-dependency-path: package-lock.json
+
+      - name: Install dependecy
+        run: npm ci
+
+      - name: Install tooltips librabry core
+        run: npm install @actions/core
+      - name: Install tooltips librabry exec
+        run: npm install @actions/exec
+      - name: Install tooltips librabry github
+        run: npm install @actions/github
+      - name: Install tooltips librabry io
+        run: npm install @actions/io
+      - name: Install tooltips librabry tools cache
+        run: npm install @actions/tool-cache
+
+      - name: Run my Action
+        uses: ./
